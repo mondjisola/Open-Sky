@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/fragment_search"
+    android:id="@+id/navigation_search">
+
+    <fragment
+        android:id="@+id/fragment_search"
+        android:name="org.network.opensky.main.ui.search.SearchFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_search">
+<!--        <action-->
+<!--            android:id="@+id/action_navigation_search_to_navigation_explore"-->
+<!--            app:destination="@id/fragment_airports_list" />-->
+    </fragment>
+<!--    <fragment-->
+<!--        android:id="@+id/fragment_airports_list"-->
+<!--        android:name="org.network.opensky.airports.ui.AirportsListFragment"-->
+<!--        android:label="@string/title_airports_list"-->
+<!--        tools:layout="@layout/fragment_airports_list" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_fragment_airports_list_to_fragment_search2"-->
+<!--            app:destination="@id/fragment_search" />-->
+<!--    </fragment>-->
+</navigation>

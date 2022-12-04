@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/navigation_main"
+    android:id="@+id/nav_graph">
+
+    <activity
+        android:id="@+id/navigation_main"
+        android:name="org.network.opensky.main.ui.search.SearchFragment"
+        android:label="@string/title_main"
+        tools:layout="@layout/fragment_search">
+    </activity>
+
+
+
+    <fragment
+        android:id="@+id/navigation_airports_list"
+        android:name="org.network.opensky.airports.ui.AirportsListFragment"
+        android:label="@string/title_airports_list"
+        tools:layout="@layout/fragment_airports_list" />
+</navigation>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation.xml"
+    app:startDestination="@+id/navigation_search">
+
+    <fragment
+        android:id="@+id/navigation_main"
+        android:name="org.network.opensky.main.MainFragment"
+        android:label="Main fragment"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_navigation_main_to_navigation_airports_list"
+            app:destination="@id/navigation_airports_list" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="org.network.opensky.main.ui.search.SearchFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_search"/>
+
+    <fragment
+        android:id="@+id/navigation_explore"
+        android:name="org.network.opensky.main.ui.explore.ExploreFragment"
+        android:label="@string/title_explore"
+        tools:layout="@layout/fragment_explore" />
+
+    <fragment
+        android:id="@+id/navigation_saved"
+        android:name="org.network.opensky.main.ui.saved.SavedFragment"
+        android:label="@string/title_saved"
+        tools:layout="@layout/fragment_saved" />
+
+    <fragment
+        android:id="@+id/navigation_airports_list"
+        android:name="org.network.opensky.airports.ui.AirportsListFragment"
+        android:label="@string/title_airports_list"
+        tools:layout="@layout/fragment_airports_list" />
+
+</navigation>

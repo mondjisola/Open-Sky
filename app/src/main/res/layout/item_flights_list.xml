@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="flight"
+            type="org.network.opensky.flights.models.Flight"/>
+        <variable name="callback"
+            type="org.network.opensky.flights.adapters.FlightClickCallback"/>
+        <variable
+            name="departureAirport"
+            type="org.network.opensky.airports.model.Airport"/>
+        <variable
+            name="arrivalAirport"
+            type="org.network.opensky.airports.model.Airport"/>
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/flight_item_card"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="@dimen/sf_dp"
+        android:layout_marginHorizontal="@dimen/m_dp"
+        android:layout_marginVertical="@dimen/xs_dp"
+        android:paddingVertical="@dimen/xs_dp"
+        style="?attr/materialCardViewElevatedStyle">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginVertical="@dimen/xs_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/flight_icao24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/l_sp"
+                    android:fontFamily="@font/google_sans_text_medium"/>
+
+            </LinearLayout>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xxs_dp"
+                android:layout_marginBottom="@dimen/t_dp"
+                app:dividerColor="?attr/colorDivider"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/t_dp"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_marginHorizontal="@dimen/xs_dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+                        <ImageView
+                            android:layout_width="@dimen/m_dp"
+                            android:layout_height="@dimen/m_dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginHorizontal="@dimen/xxs_dp"
+                            android:layout_gravity="center"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_arrow_departure"
+                            tools:ignore="ContentDescription">
+                        </ImageView>
+
+                        <TextView
+                            android:id="@+id/flight_departure_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorSecondary"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="@dimen/xs_dp"
+                            android:fontFamily="@font/google_sans_text_regular"
+                            tools:ignore="HardcodedText" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+                        <TextView
+                            android:id="@+id/flight_arrival_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorSecondary"
+                            android:layout_gravity="center_vertical"
+                            android:fontFamily="@font/google_sans_text_regular"
+                            tools:ignore="HardcodedText" />
+
+                        <ImageView
+                            android:layout_width="@dimen/m_dp"
+                            android:layout_height="@dimen/m_dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginHorizontal="@dimen/xxs_dp"
+                            android:layout_gravity="center"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_arrow_arrival"
+                            tools:ignore="ContentDescription">
+                        </ImageView>
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_marginHorizontal="@dimen/xs_dp"
+                    android:layout_marginVertical="@dimen/xxs_dp"
+                    android:paddingHorizontal="@dimen/tf_dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/flight_departure_time_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+                        <TextView
+                            android:id="@+id/flight_departure_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/m_dp"
+                            android:textColor="?attr/colorSecondary"
+                            android:layout_gravity="center_vertical"
+                            android:fontFamily="@font/google_sans_text_regular"
+                            tools:ignore="HardcodedText" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/flight_arrival_time_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+                        <TextView
+                            android:id="@+id/flight_arrival_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/m_dp"
+                            android:textColor="?attr/colorSecondary"
+                            android:layout_gravity="center_vertical"
+                            android:fontFamily="@font/google_sans_text_regular"
+                            tools:ignore="HardcodedText" />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_marginHorizontal="@dimen/xs_dp"
+                    android:layout_marginVertical="@dimen/xxs_dp"
+                    android:paddingHorizontal="@dimen/tf_dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="?attr/colorDivider"
+                            android:text="●––––––"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/flight_duration"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginHorizontal="@dimen/zf_dp"
+                            android:textColor="?attr/colorSecondary"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="?attr/colorDivider"
+                            android:text="––––––●"
+                            tools:ignore="HardcodedText" />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_marginHorizontal="@dimen/xs_dp"
+                    android:layout_marginTop="@dimen/xs_dp"
+                    android:layout_marginBottom="@dimen/xxs_dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/flight_departure_flag_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <TextView
+                            android:id="@+id/flight_departure_airport_icao"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/xs_dp"
+                            android:layout_gravity="center_horizontal"
+                            android:fontFamily="@font/google_sans_text_regular"
+                            android:textStyle="bold"
+                            android:text="@{departureAirport.icao}"
+                            tools:ignore="HardcodedText" />
+
+                        <ImageView
+                            android:id="@+id/flight_departure_airport_flag"
+                            android:layout_width="@dimen/st_dp"
+                            android:layout_height="@dimen/ft_dp"
+                            android:layout_marginHorizontal="@dimen/tf_dp"
+                            android:layout_gravity="center_horizontal"
+                            android:scaleType="centerInside"
+                            android:adjustViewBounds="true"
+                            tools:ignore="ContentDescription">
+                        </ImageView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="@dimen/tfs_dp"
+                        app:layout_constraintStart_toEndOf="@id/flight_departure_flag_layout"
+                        app:layout_constraintEnd_toStartOf="@id/flight_arrival_flag_layout"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="?attr/colorDivider"
+                            android:text="●––––––"
+                            tools:ignore="HardcodedText" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerInside"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_flight"
+                            tools:ignore="ContentDescription">
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="?attr/colorDivider"
+                            android:text="––––––●"
+                            tools:ignore="HardcodedText" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/flight_arrival_flag_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <TextView
+                            android:id="@+id/flight_arrival_airport_icao"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/xs_dp"
+                            android:layout_gravity="center_horizontal"
+                            android:fontFamily="@font/google_sans_text_regular"
+                            android:text="@{arrivalAirport.icao}"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText" />
+
+                        <ImageView
+                            android:id="@+id/flight_arrival_airport_flag"
+                            android:layout_width="@dimen/st_dp"
+                            android:layout_height="@dimen/ft_dp"
+                            android:layout_marginHorizontal="@dimen/tf_dp"
+                            android:layout_gravity="center_horizontal"
+                            android:scaleType="centerInside"
+                            android:adjustViewBounds="true"
+                            tools:ignore="ContentDescription">
+                        </ImageView>
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/xs_dp"
+                    android:layout_marginTop="@dimen/xxs_dp"
+                    android:paddingHorizontal="@dimen/t_dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+                        <TextView
+                            android:id="@+id/flight_departure_airport_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/xm_sp"
+                            android:fontFamily="@font/google_sans_text_medium"
+                            tools:text="@{departureAirport.name}" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <TextView
+                            android:id="@+id/flight_arrival_airport_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/xm_sp"
+                            android:fontFamily="@font/google_sans_text_medium"
+                            tools:text="@{arrivalAirport.name}" />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/xs_dp"
+                    android:layout_marginVertical="@dimen/xxs_dp"
+                    android:paddingHorizontal="@dimen/t_dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            tools:ignore="UselessParent">
+
+                            <TextView
+                                android:id="@+id/flight_departure_airport_city"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/google_sans_text_regular"
+                                android:textSize="@dimen/s_sp"
+                                android:textColor="?attr/colorSecondary"
+                                tools:text="@{departureAirport.city}" />
+
+                            <!-- Coma and apace to separate city and country -->
+                            <!-- visible only if both city and country are present -->
+                            <TextView
+                                android:id="@+id/dep_acs"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="?attr/colorSecondary"
+                                android:text=", "
+                                android:fontFamily="@font/google_sans_text_regular"
+                                android:textSize="@dimen/s_sp"
+                                tools:ignore="HardcodedText" />
+
+                            <TextView
+                                android:id="@+id/flight_departure_airport_country"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/google_sans_text_regular"
+                                android:textSize="@dimen/s_sp"
+                                android:textColor="?attr/colorSecondary"
+                                tools:text="@{departureAirport.country}" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            tools:ignore="UselessParent">
+
+                            <TextView
+                                android:id="@+id/flight_arrival_airport_city"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/google_sans_text_regular"
+                                android:textSize="@dimen/s_sp"
+                                android:textColor="?attr/colorSecondary"
+                                tools:text="@{arrivalAirport.city}" />
+
+                            <!-- Coma and apace to separate city and country -->
+                            <!-- visible only if both city and country are present -->
+                            <TextView
+                                android:id="@+id/arr_acs"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="?attr/colorSecondary"
+                                android:text=", "
+                                android:fontFamily="@font/google_sans_text_regular"
+                                android:textSize="@dimen/s_sp"
+                                tools:ignore="HardcodedText" />
+
+                            <TextView
+                                android:id="@+id/flight_arrival_airport_country"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/google_sans_text_regular"
+                                android:textSize="@dimen/s_sp"
+                                android:textColor="?attr/colorSecondary"
+                                tools:text="@{arrivalAirport.country}" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

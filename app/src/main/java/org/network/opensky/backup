@@ -1,0 +1,899 @@
+//            if (datePickerDialog.getDatePicker().getParent() != null) {
+//                ((ViewGroup) datePickerDialog.getDatePicker().getParent()).removeView(datePickerDialog.getDatePicker());
+//            }
+
+// Set the listener for the search options drop down menu item selection.
+        searchOptionsDropdown.setOnItemClickListener((parent, view, position, id) -> {
+            Adapter adapter = parent.getAdapter();
+            String selectedOption = (String) adapter.getItem(position);
+            searchViewModel.setSearchOption(selectedOption);
+        });
+
+        // Respond to search option changes.
+        searchViewModel.getSearchOption().observe(getViewLifecycleOwner(), searchOption -> {
+            // Dynamically show/hide the departure/arrival airport text fields
+            // according to the selected search option.
+            switch (searchOption) {
+                case "Arrivals by Airport":
+                    fragmentSearchBinding.departureAirportTextField.setVisibility(View.GONE);
+                    fragmentSearchBinding.arrivalAirportTextField.setVisibility(View.VISIBLE);
+                    fragmentSearchBinding.timeIntervalLayout.setVisibility(View.VISIBLE);
+                    break;
+                case "Departures by Airport":
+                    fragmentSearchBinding.arrivalAirportTextField.setVisibility(View.GONE);
+                    fragmentSearchBinding.departureAirportTextField.setVisibility(View.VISIBLE);
+                    fragmentSearchBinding.timeIntervalLayout.setVisibility(View.VISIBLE);
+                    break;
+                case "Flights by Both Airports":
+                    fragmentSearchBinding.departureAirportTextField.setVisibility(View.VISIBLE);
+                    fragmentSearchBinding.arrivalAirportTextField.setVisibility(View.VISIBLE);
+                    fragmentSearchBinding.timeIntervalLayout.setVisibility(View.VISIBLE);
+                    break;
+                default:
+                    fragmentSearchBinding.departureAirportTextField.setVisibility(View.GONE);
+                    fragmentSearchBinding.arrivalAirportTextField.setVisibility(View.GONE);
+                    fragmentSearchBinding.timeIntervalLayout.setVisibility(View.GONE);
+                    break;
+            }
+        });
+
+        // Set the date picker dialog for the begin date text field.
+        DatePickerDialog.OnDateSetListener onDateSetListener = (view, year, month, dayOfMonth) -> {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.YEAR, year);
+            calendar.set(Calendar.MONTH, month);
+            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            Date date = calendar.getTime();
+            searchViewModel.setStartDate(date);
+        };
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                requireContext(),
+                onDateSetListener,
+                Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH),
+                true);
+//        AlertDialog datePickerAlertDialog = datePickerDialog.create();
+//        AlertDialog datePickerAlertDialogBuilder = datePickerDialog.create();
+        datePickerDialog.create();
+        fragmentSearchBinding.beginDateTextField.setOnClickListener(v -> {
+            if (datePickerDialog.getDatePicker().getParent() != null) {
+                ((ViewGroup) datePickerDialog.getDatePicker().getParent()).removeView(datePickerDialog.getDatePicker());
+            }
+            datePickerDialog.show();
+        });
+
+        MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
+        MaterialDatePicker<Long> materialDatePicker = builder.build();
+//
+        // Set the listener for the begin date text field.
+//        fragmentSearchBinding.beginDateTextField.setOnClickListener(v -> {
+//            // Show the date picker dialog.
+//            // Check if the date picker dialog is already showing.
+//            // If it is not showing, then show it.
+//            if (!materialDatePicker.isVisible()) {
+//                materialDatePicker.show(getChildFragmentManager(), "DATE_PICKER");
+//                // Set the listener for the date picker dialog.
+//                materialDatePicker.addOnPositiveButtonClickListener(selection -> {
+//                    // Get the selected date from the date picker dialog.
+//                    Date selectedDate = new Date(selection);
+//                    // Set the selected date to the begin date text field.
+//                    fragmentSearchBinding.beginDateTextField.setText(selectedDate.toString());
+//                });
+//            }
+//        });
+
+        // Set the listener for the end date text field.
+
+
+
+
+        fragmentSearchBinding.testButton.setOnClickListener(v -> {
+            AirportListFragment airportListFragment = new AirportListFragment();
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(
+                            R.anim.slide_in_bottom,
+                            R.anim.slide_out_bottom,
+                            R.anim.slide_in_bottom,
+                            R.anim.slide_out_bottom)
+                    .replace(R.id.container, airportListFragment, "airport_list_fragment")
+                    .addToBackStack(null)
+                    .commit();
+        });
+
+
+
+//
+        // Open the AirportListFragment when the user clicks on the test_button.
+        // The fragment should be opened in this way because the AirportListFragment
+        // is a dialog fragment.
+        // We will animate the fragment opening and closing like a bottom sheet.
+
+
+        // ---------------------------------------------------------------------------------------------
+            public DatePicker getDatePicker() {
+                return mDatePicker;
+            }
+
+            public void removeView(View view) {
+                ViewParent parent = view.getParent();
+                if (parent != null) {
+                    ((ViewGroup) parent).removeView(view);
+                }
+            }
+
+            // ---------------------------------------------------------------------------------------------
+
+
+
+            <!--            <ImageView-->
+            <!--                android:id="@+id/map_image"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_gravity="top|start"-->
+            <!--                android:src="@drawable/map"-->
+            <!--                android:adjustViewBounds="true"-->
+            <!--                android:contentDescription="@string/map"-->
+            <!--                />-->
+
+            <!--            <TextView-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="@dimen/default_margin"-->
+            <!--                android:layout_marginHorizontal="@dimen/default_margin"-->
+            <!--                android:text="@string/welcome_title"-->
+            <!--                android:textSize="20sp"-->
+            <!--                android:textStyle="bold"-->
+            <!--                android:textColor="?attr/colorOnSurface" />-->
+
+            <!--            <TextView-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="@dimen/small_margin"-->
+            <!--                android:layout_marginHorizontal="@dimen/default_margin"-->
+            <!--                android:textSize="16sp"-->
+            <!--                android:text="@string/welcome_description"-->
+            <!--                android:textColor="?attr/colorOnSurface" />-->
+
+
+<Button
+                android:textSize="16sp"
+                android:layout_height="56dp"
+                app:icon="@drawable/ic_search"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:id="@+id/test_button"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginBottom="50dp"
+                android:text="@string/search_flights_button_text"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                app:shapeAppearance="?attr/shapeAppearanceCornerExtraLarge"
+                android:layout_marginHorizontal="@dimen/default_margin"
+                />
+
+        fragmentSearchBinding.beginDateTextField.setOnClickListener(v -> {
+            MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
+            builder.setTitleText("Select a date range");
+            MaterialDatePicker<Long> picker = builder.build();
+            picker.show(getChildFragmentManager(), picker.toString());
+            picker.addOnPositiveButtonClickListener(selection -> {
+                Date beginDate = new Date(selection.first);
+                Date endDate = new Date(selection.second);
+                fragmentSearchBinding.beginDateTextField.setText(beginDate.toString());
+                fragmentSearchBinding.endDateTextField.setText(endDate.toString());
+            });
+        });
+
+        // Set the MaterialDatePicker for the begin and end date text fields.
+//        MaterialDatePicker<Long> materialDatePicker = MaterialDatePicker.Builder.datePicker().build();
+
+//        fragmentSearchBinding.beginDateTextField.setOnClickListener(v -> {
+//            if (!materialDatePicker.isVisible()) {
+//                materialDatePicker.show(getChildFragmentManager(), "BEGIN_DATE_PICKER");
+//                // Set the listener for the date picker dialog.
+//                materialDatePicker.addOnPositiveButtonClickListener(selection -> {
+//                    // Get the selected date from the date picker dialog.
+//                    Date selectedDate = new Date(selection);
+//                    // Set the selected date to the begin date text field.
+//                    fragmentSearchBinding.beginDateTextField.setText(selectedDate.toString());
+//                });
+//            }
+//        });
+
+        // Set the listener for the end date text field.
+//        fragmentSearchBinding.endDateTextField.setOnClickListener(v -> {
+//            // Show the MaterialDatePicker.
+//            materialDatePicker.show(getChildFragmentManager(), "MATERIAL_DATE_PICKER");
+//            // Set the listener for the MaterialDatePicker.
+//            materialDatePicker.addOnPositiveButtonClickListener(selection -> {
+//                // Get the selected date.
+//                Date selectedDate = new Date(selection);
+//                // Set the selected date to the end date text field.
+//                fragmentSearchBinding.endDateTextField.setText(selectedDate.toString());
+//            });
+//        });
+
+
+
+
+
+
+
+
+        // Now create instance of the material date picker builder make sure to add the "datePicker"
+        // which is normal material date picker which is the first type of the date picker
+        // in material design date picker.
+//        MaterialDatePicker.Builder materialDateBuilder = MaterialDatePicker.Builder.datePicker();
+//
+//        // now define the properties of the
+//        // materialDateBuilder that is title text as SELECT A DATE
+//        materialDateBuilder.setTitleText("SELECT A DATE");
+//
+//        // now create the instance of the material date
+//        // picker
+//        final MaterialDatePicker materialDatePicker = materialDateBuilder.build();
+//
+//        // handle select date button which opens the
+//        // material design date picker
+//        fragmentSearchBinding.beginDateTextField.setOnClickListener(v -> {
+//
+////            new View.OnClickListener() {
+////                @Override
+////                public void onClick(View v) {
+////                    // getSupportFragmentManager() to
+////                    // interact with the fragments
+////                    // associated with the material design
+////                    // date picker tag is to get any error
+////                    // in logcat
+//                    materialDatePicker.show(getChildFragmentManager(), "MATERIAL_DATE_PICKER");
+////                }
+////            };
+//        });
+//
+//        // now handle the positive button click from the
+//        // material design date picker
+//        materialDatePicker.addOnPositiveButtonClickListener(selection -> {
+//            // get the selected date from the material
+//            // design date picker
+//            long selectedDate = (long) selection;
+//
+//            // now convert the selected date into the
+//            // date format
+//            Date date = new Date(selectedDate);
+//
+//            // now set the selected date into the text
+//            // field
+//            fragmentSearchBinding.beginDateTextField.setText(date.toString());
+//        });
+
+//         The date picker for selecting the time interval.
+//         It will be shown when the user clicks on begin date text field or end date text field.
+//        MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
+//        MaterialDatePicker<Date> materialDatePicker = builder.build();
+//        fragmentSearchBinding.beginDateTextField.setOnClickListener(v -> {
+//            builder.setTitleText("Select begin date");
+//            builder.setSelection(searchViewModel.getBeginDate().getValue());
+//            if (!materialDatePicker.isVisible()) {
+//                materialDatePicker.show(getChildFragmentManager(), "BEGIN_DATE_PICKER");
+//                // Set the listener for the date picker dialog.
+//                materialDatePicker.addOnPositiveButtonClickListener(selection -> {
+//                    // Get the selected date from the date picker dialog.
+//                    Date selectedDate = new Date(selection);
+//                    // Set the selected date to the begin date text field.
+//                    fragmentSearchBinding.beginDateTextField.setText(selectedDate.toString());
+//                });
+//            }
+//        });
+//        fragmentSearchBinding.endDateTextField.setOnClickListener(v -> {
+//            builder.setTitleText("Select end date");
+//            if (!materialDatePicker.isVisible()) {
+//                materialDatePicker.show(getChildFragmentManager(), "END_DATE_PICKER");
+//                // Set the listener for the date picker dialog.
+//                materialDatePicker.addOnPositiveButtonClickListener(selection -> {
+//                    // Get the selected date from the date picker dialog.
+//                    Date selectedDate = new Date(selection);
+//                    // Set the selected date to the end date text field.
+//                    fragmentSearchBinding.endDateTextField.setText(selectedDate.toString());
+//                });
+//            }
+//        });
+//
+        // The time picker for selecting the time interval.
+        // It will be shown when the user clicks on begin time text field or end time text field.
+//        TimePickerDialog.OnTimeSetListener onTimeSetListener = (view, hourOfDay, minute) -> {
+//            // Get the selected time from the time picker dialog.
+//            String selectedTime = String.format("%02d:%02d", hourOfDay, minute);
+//            // Set the selected time to the begin time text field or end time text field.
+//            if (fragmentSearchBinding.beginTimeTextField.isFocused()) {
+//                fragmentSearchBinding.beginTimeTextField.setText(selectedTime);
+//            } else if (fragmentSearchBinding.endTimeTextField.isFocused()) {
+//                fragmentSearchBinding.endTimeTextField.setText(selectedTime);
+//            }
+//        };
+
+
+<!--    <com.google.android.material.card.MaterialCardView-->
+<!--        android:id="@+id/card"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:cardUseCompatPadding="true"-->
+<!--        app:shapeAppearance="?attr/shapeAppearanceSmallComponent"-->
+<!--        app:strokeWidth="@dimen/n_dp">-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:padding="@dimen/m_dp">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/airport_country_flag"-->
+<!--                android:layout_width="25dp"-->
+<!--                android:layout_height="25dp"-->
+<!--                android:src="@drawable/bj"-->
+<!--                android:contentDescription="@string/airport_country_flag"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"/>-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/airport_name"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="@dimen/m_dp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/airport_country_flag"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                style="@style/TextAppearance.Material3.TitleLarge"-->
+<!--                tools:text="1" />-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/airport_name">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/airport_country"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textSize="@dimen/m_sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/airport_name"-->
+<!--                    app:layout_constraintTop_toBottomOf="parent"-->
+<!--                    tools:text="One" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/airport_city"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textSize="@dimen/m_sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/airport_name"-->
+<!--                    app:layout_constraintTop_toBottomOf="parent"-->
+<!--                    tools:text="One" />-->
+
+<!--            </LinearLayout>-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--    </com.google.android.material.card.MaterialCardView>-->
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:padding="16dp">-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/imageView"-->
+<!--            android:layout_width="54dp"-->
+<!--            android:layout_height="54dp"-->
+<!--            android:src="@drawable/ic_launcher_foreground"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tvNumber"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:textSize="24sp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/tvNumbersInText"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/imageView"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            tools:text="1" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tvNumbersInText"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="16sp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/tvNumber"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tvNumber"-->
+<!--            tools:text="One" />-->
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/text_field"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:endIconMode="clear_text"-->
+<!--            app:startIconCheckable="true"-->
+<!--            app:boxStrokeWidthFocused="1dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            app:endIconDrawable="@drawable/ic_cancel"-->
+<!--            app:startIconDrawable="@drawable/ic_back"-->
+<!--            android:layout_marginHorizontal="@dimen/default_margin"-->
+<!--            app:boxStrokeColor="?android:attr/textColorTertiaryInverse"-->
+<!--            app:shapeAppearance="?attr/shapeAppearanceCornerExtraLarge"-->
+<!--            app:placeholderText="@string/search_hint"-->
+<!--            app:placeholderTextColor="?attr/colorOutline"-->
+<!--            app:layout_collapseMode="parallax"-->
+<!--            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"-->
+<!--            >-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/search_field"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:imeOptions="actionSearch"-->
+<!--                android:inputType="text"/>-->
+
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+//        .setOnClickListener(v -> {
+//            Editable query = mBinding.airportsSearchBox.getText();
+//            viewModel.setQuery(query);
+//        });
+
+
+
+In the layout set your input method options to search.
+
+<EditText
+    android:imeOptions="actionSearch"
+    android:inputType="text" />
+In the java add the editor action listener.
+
+editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            performSearch();
+            return true;
+        }
+        return false;
+    }
+});
+
+        //        dividerItemDecoration.setDividerInsetStart();
+//        DividerItemDecoration dividerItemDecoration1 = new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL);
+        // Divider color
+
+        // Call the method addItemDecoration with the
+                // recyclerView instance and add MaterialDividerItemDecoration to the recyclerView.
+        //        MaterialDividerItemDecoration dividerItemDecoration = new MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL);
+        //        dividerItemDecoration.setDividerColor();
+        //        dividerItemDecoration.setLastItemDecorated(false);
+        //        mFragmentAirportsListBinding.airportsRecyclerView.addItemDecoration(dividerItemDecoration);
+
+// Begin date input.
+    private final MutableLiveData<Date> beginDate = new MutableLiveData<>();
+
+    // Begin time input.
+    private final MutableLiveData<Time> beginTime = new MutableLiveData<>();
+
+    // End date input.
+    private final MutableLiveData<Date> endDate = new MutableLiveData<>();
+
+    // End time input.
+    private final MutableLiveData<Time> endTime = new MutableLiveData<>();
+
+//        beginDate.setValue(new Date());
+//        endDate.setValue(new Date());
+//        beginTime.setValue(new Time());
+//        endTime.setValue(new Time());
+
+//    public void setBeginTime(Long time) {
+//        begin.setValue(new Date(time));
+//    }
+
+//    public void setBegin(int hour, int minute) {
+//        Date date = beginDate.getValue();
+//        Time time = new Time();
+//        time.hour = hour;
+//        time.minute = minute;
+//        assert date != null;
+//        date.setTime(time.toMillis(false));
+//        begin.setValue(date);
+//    }
+//
+//    public void setEnd(Date date) {
+//        end.setValue(date);
+//    }
+//
+//    public void setEnd(int hour, int minute) {
+//        Date date = endDate.getValue();
+//        Time time = new Time();
+//        time.hour = hour;
+//        time.minute = minute;
+//        assert date != null;
+//        date.setTime(time.toMillis(false));
+//        end.setValue(date);
+//    }
+
+//
+//    public void setEndDate(Date date) {
+//        end.setValue(date);
+//    }
+//
+//    public LiveData<Date> getBeginDate() {
+//        return beginDate;
+//    }
+//
+//    public LiveData<Date> getEndDate() {
+//        return endDate;
+//    }
+//
+//    public void setBeginTime(int hour, int minute) {
+//        Time time = new Time();
+//        time.hour = hour;
+//        time.minute = minute;
+//        begin.setValue(time);
+//    }
+//
+//    public Date getBeginDate() {
+//        return beginDate.getValue();
+//    }
+//
+//    public void setBeginDate(Long selection) {
+//        beginDate.setValue(new Date(selection));
+//    }
+//
+////    public Date getEndDate() {
+////        return endDate.getValue();
+////    }
+//
+//    public void setEndDate(Long selection) {
+//        endDate.setValue(new Date(selection));
+//    }
+//
+//    public Time getBeginTime() {
+//        return beginTime.getValue();
+//    }
+//
+////    public void setBeginTime(int hour, int minute) {
+////        Time time = new Time();
+////        time.hour = hour;
+////        time.minute = minute;
+////        beginTime.setValue(time);
+////    }
+//
+//    public Time getEndTime() {
+//        return endTime.getValue();
+//    }
+//
+//    public void setEndTime(int hour, int minute) {
+//        Time time = new Time();
+//        time.hour = hour;
+//        time.minute = minute;
+//        endTime.setValue(time);
+//    }
+//
+//    public void Begin() {
+//        Date date = beginDate.getValue();
+//        Time time = beginTime.getValue();
+//        assert date != null;
+//        assert time != null;
+//        date.setHours(time.hour);
+//        date.setMinutes(time.minute);
+//        begin.setValue(date);
+//    }
+//
+//    public void setEnd() {
+//        Date date = endDate.getValue();
+//        Time time = endTime.getValue();
+//        date.setHours(time.hour);
+//        date.setMinutes(time.minute);
+//        end.setValue(date);
+//    }
+
+//        beginTime.setValue(new Time());
+//        endTime.setValue(new Time());
+
+
+    public LiveData<String[]> getSearchOptions() {
+        return searchOptions;
+    }
+
+    public void setSearchOption(String selectedOption) {
+        switch (selectedOption) {
+            case "Arrivals by Airport":
+                searchOption.setValue("Arrivals by Airport");
+                break;
+            case "Departures by Airport":
+                searchOption.setValue("Departures by Airport");
+                break;
+            case "Flights by Both Airports":
+                searchOption.setValue("Flights by Both Airports");
+                break;
+        }
+    }
+
+    public LiveData<String> getSearchOption() {
+        return searchOption;
+    }
+
+    public void setDepartureAirport(Airport airport) {
+        departureAirport.setValue(airport);
+    }
+
+    public LiveData<Airport> getDepartureAirport() {
+        return departureAirport;
+    }
+
+    public void setArrivalAirport(Airport airport) {
+        arrivalAirport.setValue(airport);
+    }
+
+    public LiveData<Airport> getArrivalAirport() {
+        return arrivalAirport;
+    }
+
+//    public void setBeginDate(Long date) {
+//        beginDate.setValue(new Date(date));
+//    }
+//
+//    public Date getBeginDate() {
+//        return beginDate.getValue();
+//    }
+//
+//    public void setBeginTime(int hour, int minute) {
+//        Time time = new Time();
+//        time.set(0, minute, hour, getBeginDate().getDay(), getBeginDate().getMonth(), getBeginDate().getYear());
+//        beginTime.setValue(time);
+//    }
+//
+//    public Time getBeginTime() {
+//        return beginTime.getValue();
+//    }
+//
+//    public void setEndDate(Long date) {
+//        endDate.setValue(new Date(date));
+//    }
+//
+//    public Date getEndDate() {
+//        return endDate.getValue();
+//    }
+//
+//    public void setEndTime(int hour, int minute) {
+//        Time tmp = new Time();
+//        tmp.set(0, minute, hour, getEndDate().getDay(), getEndDate().getMonth(), getEndDate().getYear());
+//        endTime.setValue(tmp);
+//    }
+//
+//    public Time getEndTime() {
+//        return endTime.getValue();
+//    }
+//
+//    public Date getBegin() {
+//        Date tmp = new Date();
+//        tmp.setYear(getBeginDate().getYear());
+//        tmp.setMonth(getBeginDate().getMonth());
+//        tmp.setDate(getBeginDate().getDate());
+//        tmp.setMinutes(getBeginTime().minute);
+//        tmp.setHours(getBeginTime().hour);
+//        tmp.setSeconds(getBeginTime().second);
+//        return tmp;
+//    }
+//
+//    public Date getEnd() {
+//        Date tmp = new Date();
+//        tmp.setYear(getEndDate().getYear());
+//        tmp.setMonth(getEndDate().getMonth());
+//        tmp.setDate(getEndDate().getDate());
+//        tmp.setMinutes(getEndTime().minute);
+//        tmp.setHours(getEndTime().hour);
+//        tmp.setSeconds(getEndTime().second);
+//        return tmp;
+//    }
+//
+//    @SuppressLint("NewApi")
+//    public long getBeginUnix() {
+//        return getBegin().toInstant().getEpochSecond();
+//    }
+//
+//    @SuppressLint("NewApi")
+//    public long getEndUnix() {
+//        return getEnd().toInstant().getEpochSecond();
+//    }
+
+//    public void setBeginTime(int hour, int minute) {
+//        @SuppressLint({"NewApi", "LocalSuppress"}) Date tmp = new Date(getBeginDate().toInstant().toEpochMilli());
+//        begin.setValue(setDate(getBeginDate().getYear(), getBeginDate().getYear(), getBeginDate().getYear(), hour, minute));
+//    }
+//
+//    public Time getBeginTime() {
+//        Time tmp = new Time();
+//        tmp.set(getBeginDate().getSeconds(), getBeginDate().getSeconds(), getBeginDate().getSeconds(),);
+//        return
+//    }
+//
+//    public void setEndDate(Long date) {
+//        endDate.setValue(new Date(date));
+//    }
+//
+//    public Date getEndDate() {
+//        return endDate.getValue();
+//    }
+//
+//    public void setEndTime(int hour, int minute) {
+//        Time tmp = new Time();
+//        tmp.set(0, minute, hour, getEndDate().getDay(), getEndDate().getMonth(), getEndDate().getYear());
+//        endTime.setValue(tmp);
+//    }
+//
+//    public Time getEndTime() {
+//        return endTime.getValue();
+//    }
+//
+////    public Date getBegin() {
+//        Date tmp = new Date();
+//        tmp.setYear(getBeginDate().getYear());
+//        tmp.setMonth(getBeginDate().getMonth());
+//        tmp.setDate(getBeginDate().getDate());
+//        tmp.setMinutes(getBeginTime().minute);
+//        tmp.setHours(getBeginTime().hour);
+//        tmp.setSeconds(getBeginTime().second);
+//        return tmp;
+//    }
+//
+//    public Date getEnd() {
+//        Date tmp = new Date();
+//        tmp.setYear(getEndDate().getYear());
+//        tmp.setMonth(getEndDate().getMonth());
+//        tmp.setDate(getEndDate().getDate());
+//        tmp.setMinutes(getEndTime().minute);
+//        tmp.setHours(getEndTime().hour);
+//        tmp.setSeconds(getEndTime().second);
+//        return tmp;
+//    }
+
+@SuppressLint("NewApi")
+    public long getBeginUnix() {
+        return getBegin().toInstant().getEpochSecond();
+    }
+
+    @SuppressLint("NewApi")
+    public long getEndUnix() {
+        return getEnd().toInstant().getEpochSecond();
+    }
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginVertical="@dimen/xxs_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/l_sp"
+                    android:fontFamily="@font/google_sans_text_medium"
+                    android:gravity="center_horizontal"
+                    tools:text="Flight " />
+
+                <TextView
+                    android:id="@+id/flight_icao24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/l_sp"
+                    android:fontFamily="@font/google_sans_text_medium"
+                    tools:text="icao24" />
+
+            </LinearLayout>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:dividerColor="?attr/colorDivider"/>
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical">-->
+
+<!--                <androidx.coordinatorlayout.widget.CoordinatorLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center_horizontal"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textSize="@dimen/l_sp"-->
+<!--                            android:fontFamily="@font/google_sans_text_medium"-->
+<!--                            android:gravity="center_horizontal"-->
+<!--                            tools:text="Flight " />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/flight_icao24"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textSize="@dimen/l_sp"-->
+<!--                            android:fontFamily="@font/google_sans_text_medium"-->
+<!--                            tools:text="icao24" />-->
+
+<!--                    </LinearLayout>-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center_horizontal"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textSize="@dimen/l_sp"-->
+<!--                            android:fontFamily="@font/google_sans_text_medium"-->
+<!--                            android:gravity="center_horizontal"-->
+<!--                            tools:text="Flight " />-->
+
+<!--                    </LinearLayout>-->
+
+<!--                </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
+
+<!--            </LinearLayout>-->
+
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+        <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:adjustViewBounds="true"
+                                    android:scaleType="centerInside"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_flight"
+                                    tools:ignore="ContentDescription">
+                                </ImageView>
+
+
+                                <!--                        <TextView-->
+                                <!--                            android:id="@+id/flight_departure_airport_icao"-->
+                                <!--                            android:layout_width="wrap_content"-->
+                                <!--                            android:layout_height="wrap_content"-->
+                                <!--                            android:layout_marginVertical="@dimen/xs_dp"-->
+                                <!--                            android:layout_gravity="center_horizontal"-->
+                                <!--                            android:fontFamily="@font/google_sans_text_regular"-->
+                                <!--                            android:textStyle="bold"-->
+                                <!--                            android:text="ICAO"-->
+                                <!--                            tools:ignore="HardcodedText" />-->
+
+                                <!--                        <ImageView-->
+                                <!--                            android:id="@+id/flight_departure_airport_flag"-->
+                                <!--                            android:layout_width="wrap_content"-->
+                                <!--                            android:layout_height="@dimen/ft_dp"-->
+                                <!--                            android:layout_marginHorizontal="@dimen/tf_dp"-->
+                                <!--                            android:layout_gravity="center_horizontal"-->
+                                <!--                            android:adjustViewBounds="true"-->
+                                <!--                            android:src="@drawable/bj"-->
+                                <!--                            tools:ignore="ContentDescription">-->
+                                <!--                        </ImageView>-->
+

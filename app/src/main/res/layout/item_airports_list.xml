@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?android:attr/selectableItemBackground">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="airport"
+            type="org.network.opensky.airports.model.Airport"/>
+        <variable name="callback"
+            type="org.network.opensky.airports.ui.AirportClickCallback"/>
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/airport_item_coordinator"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="@dimen/sf_dp"
+        android:paddingVertical="@dimen/xs_dp"
+        android:onClick="@{() ->  callback.onClick(airport)}">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/xxl_dp">
+
+                <ImageView
+                    android:layout_width="@dimen/tt_dp"
+                    android:layout_height="@dimen/tt_dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/shp_circle"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:layout_width="@dimen/m_dp"
+                    android:layout_height="@dimen/m_dp"
+                    android:layout_gravity="center"
+                    app:layout_anchorGravity="center"
+                    android:src="@drawable/ic_airplane"
+                    tools:ignore="ContentDescription" />
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/airport_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/l_sp"
+                    android:fontFamily="@font/google_sans_text_medium"
+                    tools:text="@{airport.name}" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/airport_city"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/google_sans_text_regular"
+                        android:textColor="?attr/colorSecondary"
+                        tools:text="@{airport.city}" />
+
+                    <!-- Coma and apace to separate city and country -->
+                    <!-- visible only if both city and country are present -->
+                    <TextView
+                        android:id="@+id/airport_city_country_separator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/colorSecondary"
+                        android:text=", "
+                        android:fontFamily="@font/google_sans_text_regular"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/airport_country"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/google_sans_text_regular"
+                        android:textColor="?attr/colorSecondary"
+                        tools:text="@{airport.country}" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

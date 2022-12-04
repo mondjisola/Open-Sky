@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".main.ui.explore.ExploreFragment">
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:textSize="@dimen/explore_fab_text_size"
+        android:id="@+id/explore_fab"
+        android:layout_height="@dimen/explore_fab_height"
+        app:icon="@drawable/ic_search"
+        app:iconTint="?attr/colorOutline"
+        app:backgroundTint="@color/white"
+        android:layout_gravity="top|start"
+        android:layout_width="match_parent"
+        app:rippleColor="@color/transparent"
+        android:text="@string/explore_fab_label"
+        android:textColor="?attr/colorOutline"
+        android:layout_marginTop="@dimen/small_margin"
+        android:contentDescription="@string/explore_fab_content_desc"
+        android:layout_marginHorizontal="@dimen/default_margin"
+        app:shapeAppearance="?attr/shapeAppearanceCornerExtraLarge" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MapsActivity" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="explore_fab_text_size">18sp</dimen>
+    <dimen name="default_margin">16dp</dimen>
+    <dimen name="large_margin">32dp</dimen>
+    <dimen name="explore_fab_height">47.5dp</dimen>
+    <dimen name="small_margin">8dp</dimen>
+    <dimen name="navigation_bar_height">80dp</dimen>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="item_horizontal_margin">8dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="n_dp">0dp</dimen>
+    <dimen name="xxs_dp">4dp</dimen>
+    <dimen name="zf_dp">5dp</dimen>
+    <dimen name="xs_dp">8dp</dimen>
+    <dimen name="t_dp">10dp</dimen>
+    <dimen name="s_dp">12dp</dimen>
+    <dimen name="xm_dp">14dp</dimen>
+    <dimen name="m_dp">16dp</dimen>
+    <dimen name="os_dp">17dp</dimen>
+    <dimen name="l_dp">18dp</dimen>
+    <dimen name="xl_dp">20dp</dimen>
+    <dimen name="xxl_dp">24dp</dimen>
+    <dimen name="tf_dp">25dp</dimen>
+    <dimen name="tt_dp">32dp</dimen>
+    <dimen name="tfs_dp">34dp</dimen>
+    <dimen name="ft_dp">40dp</dimen>
+    <dimen name="ff_dp">44dp</dimen>
+    <dimen name="f_dp">50dp</dimen>
+    <dimen name="st_dp">60dp</dimen>
+    <dimen name="sf_dp">75dp</dimen>
+    <dimen name="mh_dp">100dp</dimen>
+
+    <dimen name="n_sp">0sp</dimen>
+    <dimen name="xxs_sp">8sp</dimen>
+    <dimen name="xs_sp">10sp</dimen>
+    <dimen name="s_sp">12sp</dimen>
+    <dimen name="xm_sp">14sp</dimen>
+    <dimen name="m_sp">16sp</dimen>
+    <dimen name="l_sp">18sp</dimen>
+    <dimen name="xl_sp">20sp</dimen>
+    <dimen name="xxl_sp">24sp</dimen>
+    
+
+</resources>

@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Open-Sky</string>
+    <string name="title_search">Search</string>
+    <string name="title_explore">Explore</string>
+    <string name="title_saved">Saved</string>
+    <string name="explore_fab_content_desc">Button to find a flight</string>
+    <string name="explore_fab_label">Explore by quick search</string>
+    <string name="map" />
+    <string name="welcome_description">Find worldwide air traffic information.</string>
+    <string name="welcome_title">Welcome to Open-Sky!</string>
+    <string name="about">Open-Sky is an application for finding worldwide air traffic information. You can search for flights from a specific airport (start or arrival) or for flights between two airports. You can also explore the world and see the flights in real time on the map. And you can save your favorite airports and flights to see them later.</string>
+    <string name="departure_airport_hint">Departure airport</string>
+    <string name="arrival_airport_hint">Arrival airport</string>
+    <string name="search_option_hint">Search option</string>
+    <string name="search_flights_button_text">Search flights</string>
+    <string name="begin_date_hint">Begin date</string>
+    <string name="begin_time_hint">Begin time</string>
+    <string name="end_date_hint">End date</string>
+    <string name="end_time_hint">End time</string>
+    <string name="search_hint">Find an airport…</string>
+
+    <string name="loading_airports">Loading airports…</string>
+    <string name="search_airports_hint">Search airports…</string>
+    <string name="cd_airports_list">Airports list</string>
+    <string name="cd_airport_icao">ICAO of the airport</string>
+    <string name="cd_airport_iata">IATA of the airport</string>
+    <string name="cd_airport_name">Name of the airport</string>
+    <string name="cd_airport_city">City of the airport</string>
+    <string name="cd_airport_country">Country of the airport</string>
+    <string name="cd_airport_elevation">Elevation of the airport</string>
+    <string name="cd_airport_latitude">Latitude of the airport</string>
+    <string name="cd_airport_longitude">Longitude of the airport</string>
+    <string name="cd_airport_timezone">Timezone of the airport</string>
+    <string name="cd_search_airports">Search airports</string>
+    <string name="loading_flights">Loading flights…</string>
+    <string name="cd_flights_list">Flights list</string>
+
+    <string name="date_year_toggle">Include year</string>
+    <string name="date_time_set">Set</string>
+    <string name="date_time_cancel">Cancel</string>
+    <string name="title_airports_list">Airports list</string>
+    <string name="title_main">Main</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="airport_country_flag">Airport country flag</string>
+
+</resources>

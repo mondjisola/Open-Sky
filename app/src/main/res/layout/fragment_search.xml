@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/search_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".main.ui.search.SearchFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:fitsSystemWindows="true"
+        app:liftOnScroll="true">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/search_top_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Search for flights"
+            app:titleTextAppearance="?attr/textAppearanceTitleLarge"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Search options dropdown -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/search_options_text_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/m_dp"
+                android:layout_marginHorizontal="@dimen/m_dp"
+                android:layout_marginBottom="@dimen/xs_dp"
+                android:hint="@string/search_option_hint"
+                app:shapeAppearance="?attr/shapeAppearanceCornerSmall"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                <AutoCompleteTextView
+                    android:id="@+id/search_options_dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerSmall"
+                    android:inputType="none"
+                    tools:ignore="LabelFor" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Departure airport text-field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/departure_airport_text_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/xs_dp"
+                android:layout_marginHorizontal="@dimen/m_dp"
+                android:hint="@string/departure_airport_hint"
+                app:startIconDrawable="@drawable/ic_departure_airplane"
+                app:shapeAppearance="?attr/shapeAppearanceCornerSmall">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/departure_airport_text_field_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Arrival airport text-field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/arrival_airport_text_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/xs_dp"
+                android:layout_marginHorizontal="@dimen/m_dp"
+                android:hint="@string/arrival_airport_hint"
+                app:startIconDrawable="@drawable/ic_arrival_airplane"
+                app:shapeAppearance="?attr/shapeAppearanceCornerSmall">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/arrival_airport_text_field_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Time interval to retrieve flights for -->
+            <LinearLayout
+                android:id="@+id/time_interval_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/default_margin"
+                android:orientation="vertical">
+
+                <!-- Begin date and time disposed horizontally in a LinearLayout -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/xs_dp"
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
+
+                    <!-- Begin date -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/begin_date_hint"
+                        app:startIconDrawable="@drawable/ic_departure_date"
+                        app:shapeAppearance="?attr/shapeAppearanceCornerSmall">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/begin_date_text_field"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="date"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- Begin time -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/m_dp"
+                        android:hint="@string/begin_time_hint"
+                        app:startIconDrawable="@drawable/ic_schedule"
+                        app:shapeAppearance="?attr/shapeAppearanceCornerSmall">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/begin_time_text_field"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="time"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <!-- End date and time disposed horizontally in a linear layout -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/xs_dp"
+                    android:orientation="horizontal"
+                    android:baselineAligned="false"
+                    >
+
+                    <!-- End date -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/end_date_hint"
+                        app:startIconDrawable="@drawable/ic_arrival_date"
+                        app:shapeAppearance="?attr/shapeAppearanceCornerSmall">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/end_date_text_field"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="date"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- End time -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/end_time_hint"
+                        app:startIconDrawable="@drawable/ic_schedule"
+                        android:layout_marginLeft="@dimen/m_dp"
+                        app:shapeAppearance="?attr/shapeAppearanceCornerSmall"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/end_time_text_field"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="time"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Search button -->
+            <Button
+                android:id="@+id/search_flights_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xl_dp"
+                android:layout_marginHorizontal="@dimen/m_dp"
+                android:layout_gravity="top|center_horizontal"
+                android:fontFamily="@font/google_sans_text_medium"
+                android:text="@string/search_flights_button_text"
+                android:textSize="@dimen/m_sp"
+                app:icon="@drawable/ic_search" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
